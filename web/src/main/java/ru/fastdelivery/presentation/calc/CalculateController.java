@@ -37,13 +37,12 @@ public class CalculateController {
         var packs = request.packages().stream()
                 .map(pkg -> new Pack(
                         new Weight(pkg.weight()),
-                        pkg.dimensions() // используем dimensions() для упаковки
+                        pkg.dimensions()
                 ))
                 .toList();
 
         var shipment = new Shipment(packs, currencyFactory.create(request.currencyCode()));
 
-        // Используем методы lat() и lon() для доступа к координатам
         var from = new Coordinates(request.from().lat(), request.from().lon());
         var to = new Coordinates(request.to().lat(), request.to().lon());
 

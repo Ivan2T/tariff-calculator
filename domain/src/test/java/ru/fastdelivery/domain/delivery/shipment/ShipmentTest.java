@@ -35,7 +35,7 @@ class ShipmentTest {
     @Test
     void whenSummarizingVolumeOfAllPackages_thenReturnSum() {
         var weight = new Weight(BigInteger.valueOf(1000));
-        var dimensions = new OuterDimensions(new Length(345), new Length(589), new Length(234)); // округлится до 0.0525
+        var dimensions = new OuterDimensions(new Length(345), new Length(589), new Length(234));
 
         var packages = List.of(
                 new Pack(weight, dimensions),

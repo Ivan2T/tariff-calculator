@@ -48,4 +48,8 @@ public class TariffCalculateUseCase {
     public Price minimalPrice() {
         return weightPriceProvider.minimalPrice();
     }
+
+    public <T> Object calc(T any) {
+        return null;
+    }
 }

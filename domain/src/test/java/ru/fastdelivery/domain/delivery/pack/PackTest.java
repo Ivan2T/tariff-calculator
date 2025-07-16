@@ -30,14 +30,14 @@ class PackTest {
     void whenValidWeightAndDimensions_thenPackCreatedCorrectly() {
         var weight = new Weight(BigInteger.valueOf(10_000));
         var dimensions = new OuterDimensions(
-                new Length(345), // округляется до 350
-                new Length(589), // округляется до 600
-                new Length(234)  // округляется до 250
+                new Length(345),
+                new Length(589),
+                new Length(234)
         );
 
         var pack = new Pack(weight, dimensions);
 
         assertThat(pack.weight()).isEqualTo(weight);
-        assertThat(pack.volumeCubicMeters()).isEqualTo(0.0525); // 350*600*250 / 1_000_000_000
+        assertThat(pack.volumeCubicMeters()).isEqualTo(0.0525);
     }
 }

@@ -33,15 +33,15 @@ class TariffCalculateUseCaseTest {
     @DisplayName("Расчёт только по весу (объём нулевой, расстояние ≤ min) -- успешно")
     void whenCalculateByWeight_thenSuccess() {
         // входные данные
-        Price minimalPrice = new Price(BigDecimal.TEN, currency);          // 10
-        Price pricePerKg   = new Price(BigDecimal.valueOf(100), currency); // 100 ₽/кг
-        Pack  pack         = new Pack(new Weight(BigInteger.valueOf(1_200)), /* 1.2 кг */
+        Price minimalPrice = new Price(BigDecimal.TEN, currency);
+        Price pricePerKg   = new Price(BigDecimal.valueOf(100), currency);
+        Pack  pack         = new Pack(new Weight(BigInteger.valueOf(1_200)),
                 new OuterDimensions(new Length(1), new Length(1), new Length(1)));
 
         // моки
         when(weightPriceProvider.minimalPrice()).thenReturn(minimalPrice);
         when(weightPriceProvider.costPerKg()).thenReturn(pricePerKg);
-        when(configProvider.pricePerCubicMeter()).thenReturn(BigDecimal.ZERO); // важно — чтобы не было NPE
+        when(configProvider.pricePerCubicMeter()).thenReturn(BigDecimal.ZERO);
         when(configProvider.minimalDistanceKm()).thenReturn(450);
 
         Shipment shipment = new Shipment(List.of(pack), currency);
@@ -49,7 +49,7 @@ class TariffCalculateUseCaseTest {
         Price result = tariffCalculateUseCase.calc(
                 shipment,
                 new Coordinates(55, 35),
-                new Coordinates(55, 35)          // distance = 0  ≤ 450
+                new Coordinates(55, 35)
         );
 
         assertThat(result.amount()).isEqualByComparingTo("120.00");
@@ -80,13 +80,13 @@ class TariffCalculateUseCaseTest {
 
         // груз
         Pack pack = new Pack(
-                new Weight(BigInteger.valueOf(5_000)),                           // 5 кг
+                new Weight(BigInteger.valueOf(5_000)),
                 new OuterDimensions(new Length(345), new Length(589), new Length(234))
         );
         Shipment shipment = new Shipment(List.of(pack), currency);
 
         Coordinates from = new Coordinates(55.7558, 37.6173);
-        Coordinates to   = new Coordinates(59.9343, 30.3351); // ≈ 633 км
+        Coordinates to   = new Coordinates(59.9343, 30.3351);
 
         Price result = tariffCalculateUseCase.calc(shipment, from, to);
 

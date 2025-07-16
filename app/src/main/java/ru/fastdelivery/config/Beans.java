@@ -21,7 +21,7 @@ public class Beans {
             PricesRublesProperties pricesRublesProperties,
             GeoProperties geoProperties
     ) {
-        // Здесь мы создаем DeliveryPriceConfigProvider и передаем необходимые зависимости
+
         return new DeliveryPriceConfigProvider() {
             @Override
             public Price costPerKg() {
@@ -40,7 +40,7 @@ public class Beans {
 
             @Override
             public int minimalDistanceKm() {
-                return geoProperties.getMinDistance(); // Используем minDistance из GeoProperties
+                return geoProperties.getMinDistance();
             }
         };
     }
@@ -50,7 +50,6 @@ public class Beans {
             WeightPriceProvider weightPriceProvider,
             DeliveryPriceConfigProvider deliveryPriceConfigProvider
     ) {
-        // Здесь создаем TariffCalculateUseCase и передаем уже готовые зависимости
         return new TariffCalculateUseCase(weightPriceProvider, deliveryPriceConfigProvider);
     }
 }

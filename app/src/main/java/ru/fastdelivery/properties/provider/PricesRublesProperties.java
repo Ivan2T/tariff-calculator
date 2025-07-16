@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.fastdelivery.domain.common.currency.CurrencyFactory;
 import ru.fastdelivery.domain.common.price.Price;
-import ru.fastdelivery.usecase.DeliveryPriceConfigProvider;  // импортировать интерфейс
-import ru.fastdelivery.usecase.WeightPriceProvider;  // импортировать интерфейс
+import ru.fastdelivery.usecase.DeliveryPriceConfigProvider;
+import ru.fastdelivery.usecase.WeightPriceProvider;
 
 import java.math.BigDecimal;
 
@@ -20,27 +20,47 @@ public class PricesRublesProperties implements WeightPriceProvider, DeliveryPric
     @Autowired
     private CurrencyFactory currencyFactory;
 
-    // Реализация метода для расчета стоимости за кг
     @Override
     public Price costPerKg() {
         return new Price(perKg, currencyFactory.create("RUB"));
     }
 
-    // Реализация метода для минимальной цены
     @Override
     public Price minimalPrice() {
         return new Price(minimal, currencyFactory.create("RUB"));
     }
 
-    // Реализация метода для стоимости за кубический метр
     @Override
     public BigDecimal pricePerCubicMeter() {
         return perCubicMeter;
     }
 
-    // Реализация метода для минимального расстояния в километрах
     @Override
     public int minimalDistanceKm() {
         return minDistance;
+    }
+
+    public void setCurrencyFactory(CurrencyFactory currencyFactory) {
+        this.currencyFactory = currencyFactory;
+    }
+
+    public CurrencyFactory getCurrencyFactory() {
+        return currencyFactory;
+    }
+
+    public void setPerKg(BigDecimal perKg) {
+        this.perKg = perKg;
+    }
+
+    public BigDecimal getPerKg() {
+        return perKg;
+    }
+
+    public void setMinimal(BigDecimal minimal) {
+        this.minimal = minimal;
+    }
+
+    public BigDecimal getMinimal() {
+        return minimal;
     }
 }

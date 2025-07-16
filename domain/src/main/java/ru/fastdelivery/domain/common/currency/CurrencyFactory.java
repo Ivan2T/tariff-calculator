@@ -4,7 +4,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 @Component
-@Primary // Устанавливаем этот бин как основной
+@Primary
 public class CurrencyFactory {
     private final CurrencyPropertiesProvider propertiesProvider;
 

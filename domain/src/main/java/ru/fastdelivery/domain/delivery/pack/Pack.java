@@ -18,9 +18,6 @@ public record Pack(Weight weight, OuterDimensions dimensions) {
         }
     }
 
-    /**
-     * Объём упаковки в м³ с точностью до 4 знаков
-     */
     public double volumeCubicMeters() {
         return dimensions.volumeCubicMeters();
     }
